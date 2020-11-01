@@ -3,4 +3,4 @@ closure-library/*
 .settings/*
 *~
 _site/*
-android-app/*
+.DS_Store
