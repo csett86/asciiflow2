@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="Description" content="Infinite ASCII diagrams, save to Google Drive, resize, freeform draw, and export straight to text/html.">
+<meta name="Description" content="Infinite ASCII diagrams, resize, freeform draw, and export straight to text/html.">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
@@ -498,8 +498,6 @@ textarea {
 </div>
 
 <div id="file-tools">
-  <div id="drive-save-state">Unsaved</div>
-  <button id="drive-button" class="tool drive-image" title="Google Drive Saving"></button>
   <button id="export-button" class="tool export-image" title="Export"></button>
   <button id="import-button" class="tool import-image" title="Import"></button>
   <button id="clear-button" class="tool clear-image" title="Clear"></button>
@@ -570,48 +568,12 @@ textarea {
   </div>
 </div>
 
-<div id="drive-dialog" class="dialog">
-  <div id="drive-filename">Untitled ASCII Diagram</div>
-  <div style="margin: 5px;">Edit permissions and manage files in <a href="https://drive.google.com/" target="_blank">Google Drive</a>.</div>
-  <br>
-  <button id="drive-new-file-button">New Drawing</button>
-  <br>
-  <div id="drive-file-list">
-    <!-- filled with li's -->
-  </div>
-  <div class="dialog-button-bar">
-    <button class="close-dialog-button">Close</button>
-  </div>
-</div>
-
 <textarea id="freeform-tool-input"></textarea>
 
 <canvas id="ascii-canvas"></canvas>
 
 <script src="jquery-3.1.1.min.js"></script>
 <script src="js-compiled.js"></script>
-<script src="https://apis.google.com/js/client.js?onload=window.gapiCallback"></script>
-
-<script type="text/javascript">
-var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-if (width > 750) {
-  window._tpm = window._tpm || [];
-  window._tpm['paywallID'] = '37774341';
-  window._tpm['trackPageview'] = true;
-}
-</script>
-<script type="text/javascript" src="https://code.tinypass.com/tpl/d1/tpm.js"></script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','analytics');
-
-  analytics('create', 'UA-49427709-1', 'asciiflow.com');
-  analytics('send', 'pageview');
-
-</script>
 
 <link rel="stylesheet" type="text/css" href="addtohomescreen.css">
 <script src="addtohomescreen.min.js"></script>
