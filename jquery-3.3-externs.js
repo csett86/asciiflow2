@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 The Closure Compiler Authors.
+ * Copyright 2017 The Closure Compiler Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -200,7 +200,7 @@ jQuery.prototype.add = function(arg1, context) {};
 jQuery.prototype.addBack = function(arg1) {};
 
 /**
- * @param {(string|function(number,String))} arg1
+ * @param {(string|Array<string>|function(number,String))} arg1
  * @return {!jQuery}
  */
 jQuery.prototype.addClass = function(arg1) {};
@@ -305,8 +305,16 @@ jQuery.prototype.append = function(arg1, content) {};
 jQuery.prototype.appendTo = function(target) {};
 
 /**
- * @param {(string|Object<string,*>)} arg1
- * @param {(string|number|boolean|function(number,string))=} arg2
+ * Only call this method with the following combinations of arguments:
+ *   function(string, (string|number|undefined))
+ *   function(!Object<string, (string|number)>)
+ *   function(string, function(this:Element number,string):(string|number))
+ *
+ * See https://api.jquery.com/attr/#attr2
+ *
+ * @param {(string|!Object<string,(string|number)>)} arg1
+ * @param {(string|number|function(this:Element,number,string):(string|number))=}
+ *     arg2
  * @return {(string|!jQuery)}
  */
 jQuery.prototype.attr = function(arg1, arg2) {};
@@ -331,6 +339,7 @@ jQuery.prototype.bind = function(arg1, eventData, arg3) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "blur", handler ) instead.
  */
 jQuery.prototype.blur = function(arg1, handler) {};
 
@@ -408,6 +417,7 @@ jQuery.callbacks.prototype.remove = function(callbacks) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "change", handler ) instead.
  */
 jQuery.prototype.change = function(arg1, handler) {};
 
@@ -428,6 +438,7 @@ jQuery.prototype.clearQueue = function(queueName) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "click", handler ) instead.
  */
 jQuery.prototype.click = function(arg1, handler) {};
 
@@ -462,6 +473,14 @@ jQuery.contains = function(container, contained) {};
 jQuery.prototype.contents = function() {};
 
 /**
+ * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
+ * @param {function(!jQuery.Event)=} handler
+ * @return {!jQuery}
+ * @deprecated Please use .on( "contextmenu", handler ) instead.
+ */
+jQuery.prototype.contextmenu = function(arg1, handler) {};
+
+/**
  * @param {(string|Object<string,*>)} arg1
  * @param {(string|number|function(number,*))=} arg2
  * @return {(string|!jQuery)}
@@ -491,6 +510,7 @@ jQuery.prototype.data = function(arg1, value) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "dblclick", handler ) instead.
  */
 jQuery.prototype.dblclick = function(arg1, handler) {};
 
@@ -845,7 +865,7 @@ jQuery.Event.prototype.type;
 /** @type {Window} */
 jQuery.Event.prototype.view;
 
-/** @type {number} */
+/** @type {number} @deprecated */
 jQuery.Event.prototype.which;
 
 /**
@@ -922,6 +942,7 @@ jQuery.fn = jQuery.prototype;
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "focus", handler ) instead.
  */
 jQuery.prototype.focus = function(arg1, handler) {};
 
@@ -929,6 +950,7 @@ jQuery.prototype.focus = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "focusin", handler ) instead.
  */
 jQuery.prototype.focusin = function(arg1, handler) {};
 
@@ -936,6 +958,7 @@ jQuery.prototype.focusin = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "focusout", handler ) instead.
  */
 jQuery.prototype.focusout = function(arg1, handler) {};
 
@@ -1032,6 +1055,7 @@ jQuery.prototype.hide = function(duration, arg2, callback) {};
 /**
  * @param {boolean} hold
  * @return {undefined}
+ * @deprecated
  */
 jQuery.holdReady = function(hold) {};
 
@@ -1039,6 +1063,7 @@ jQuery.holdReady = function(hold) {};
  * @param {function(!jQuery.Event)} arg1
  * @param {function(!jQuery.Event)=} handlerOut
  * @return {!jQuery}
+ * @deprecated Please use .on( "mouseenter", handler ) and .on( "mouseleave", handler ) instead.
  */
 jQuery.prototype.hover = function(arg1, handlerOut) {};
 
@@ -1105,6 +1130,7 @@ jQuery.prototype.is = function(arg1) {};
  * @param {*} obj
  * @return {boolean}
  * @nosideeffects
+ * @deprecated Please use Array.isArray(obj) instead.
  */
 jQuery.isArray = function(obj) {};
 
@@ -1119,6 +1145,7 @@ jQuery.isEmptyObject = function(obj) {};
  * @param {*} obj
  * @return {boolean}
  * @nosideeffects
+ * @deprecated
  */
 jQuery.isFunction = function(obj) {};
 
@@ -1126,6 +1153,7 @@ jQuery.isFunction = function(obj) {};
  * @param {*} value
  * @return {boolean}
  * @nosideeffects
+ * @deprecated
  */
 jQuery.isNumeric = function(value) {};
 
@@ -1140,6 +1168,7 @@ jQuery.isPlainObject = function(obj) {};
  * @param {*} obj
  * @return {boolean}
  * @nosideeffects
+ * @deprecated
  */
 jQuery.isWindow = function(obj) {};
 
@@ -1260,6 +1289,7 @@ jQuery.jqXHR.prototype.then =
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "keydown", handler ) instead.
  */
 jQuery.prototype.keydown = function(arg1, handler) {};
 
@@ -1267,6 +1297,7 @@ jQuery.prototype.keydown = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "keypress", handler ) instead.
  */
 jQuery.prototype.keypress = function(arg1, handler) {};
 
@@ -1274,6 +1305,7 @@ jQuery.prototype.keypress = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "keyup", handler ) instead.
  */
 jQuery.prototype.keyup = function(arg1, handler) {};
 
@@ -1288,7 +1320,7 @@ jQuery.prototype.length;
 
 /**
  * @param {*} obj
- * @return {Array<*>}
+ * @return {!Array<*>}
  * @nosideeffects
  */
 jQuery.makeArray = function(obj) {};
@@ -1318,6 +1350,7 @@ jQuery.merge = function(first, second) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mousedown", handler ) instead.
  */
 jQuery.prototype.mousedown = function(arg1, handler) {};
 
@@ -1325,6 +1358,7 @@ jQuery.prototype.mousedown = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mousenter", handler ) instead.
  */
 jQuery.prototype.mouseenter = function(arg1, handler) {};
 
@@ -1332,6 +1366,7 @@ jQuery.prototype.mouseenter = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mouseleave", handler ) instead.
  */
 jQuery.prototype.mouseleave = function(arg1, handler) {};
 
@@ -1339,6 +1374,7 @@ jQuery.prototype.mouseleave = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mousemove", handler ) instead.
  */
 jQuery.prototype.mousemove = function(arg1, handler) {};
 
@@ -1346,6 +1382,7 @@ jQuery.prototype.mousemove = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mouseout", handler ) instead.
  */
 jQuery.prototype.mouseout = function(arg1, handler) {};
 
@@ -1353,6 +1390,7 @@ jQuery.prototype.mouseout = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mouseover", handler ) instead.
  */
 jQuery.prototype.mouseover = function(arg1, handler) {};
 
@@ -1360,6 +1398,7 @@ jQuery.prototype.mouseover = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "mouseup", handler ) instead.
  */
 jQuery.prototype.mouseup = function(arg1, handler) {};
 
@@ -1387,7 +1426,7 @@ jQuery.prototype.nextUntil = function(arg1, filter) {};
 
 /**
  * @param {boolean=} removeAll
- * @return {Object}
+ * @return {!typeof jQuery}
  */
 jQuery.noConflict = function(removeAll) {};
 
@@ -1406,6 +1445,7 @@ jQuery.prototype.not = function(arg1) {};
 /**
  * @return {number}
  * @nosideeffects
+ * @deprecated
  */
 jQuery.now = function() {};
 
@@ -1653,6 +1693,7 @@ jQuery.prototype.prop = function(arg1, arg2) {};
 /**
  * @param {...*} var_args
  * @return {function()}
+ * @deprecated
  */
 jQuery.proxy = function(var_args) {};
 
@@ -1707,7 +1748,7 @@ jQuery.prototype.remove = function(selector) {};
 jQuery.prototype.removeAttr = function(attributeName) {};
 
 /**
- * @param {(string|function(number,string))=} arg1
+ * @param {(string|Array<string>|function(number,string))=} arg1
  * @return {!jQuery}
  */
 jQuery.prototype.removeClass = function(arg1) {};
@@ -1747,6 +1788,7 @@ jQuery.prototype.replaceWith = function(arg1) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "resize", handler ) instead.
  */
 jQuery.prototype.resize = function(arg1, handler) {};
 
@@ -1754,6 +1796,7 @@ jQuery.prototype.resize = function(arg1, handler) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "scroll", handler ) instead.
  */
 jQuery.prototype.scroll = function(arg1, handler) {};
 
@@ -1773,6 +1816,7 @@ jQuery.prototype.scrollTop = function(value) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "select", handler ) instead.
  */
 jQuery.prototype.select = function(arg1, handler) {};
 
@@ -1857,6 +1901,7 @@ jQuery.prototype.stop = function(arg1, arg2, jumpToEnd) {};
  * @param {(function(!jQuery.Event)|Object<string, *>)=} arg1
  * @param {function(!jQuery.Event)=} handler
  * @return {!jQuery}
+ * @deprecated Please use .on( "submit", handler ) instead.
  */
 jQuery.prototype.submit = function(arg1, handler) {};
 
@@ -1930,7 +1975,7 @@ jQuery.prototype.toArray = function() {};
 jQuery.prototype.toggle = function(arg1, arg2, arg3) {};
 
 /**
- * @param {(string|function(number,string,boolean))} arg1
+ * @param {(string|Array<string>|function(number,string,boolean))} arg1
  * @param {boolean=} flag
  * @return {!jQuery}
  */
@@ -1961,6 +2006,7 @@ jQuery.trim = function(str) {};
  * @param {*} obj
  * @return {string}
  * @nosideeffects
+ * @deprecated
  */
 jQuery.type = function(obj) {};
 
